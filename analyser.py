@@ -27,14 +27,9 @@ def process_all_files():
         print(f"Hexdump enregistré dans {output_path}")
 
 def compare_files(filename1, filename2):
-    input_dir = "data"
+    input_dir = "resultat"
     output_dir = "comparaison"
     os.makedirs(output_dir, exist_ok=True)
-    
-    if not filename1.endswith('.sky'):
-        filename1 += '.sky'
-    if not filename2.endswith('.sky'):
-        filename2 += '.sky'
     
     file1 = os.path.join(input_dir, filename1)
     file2 = os.path.join(input_dir, filename2)
