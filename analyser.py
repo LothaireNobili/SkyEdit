@@ -55,12 +55,9 @@ def compare_files(filename1, filename2):
         chunk1 = data1[i:i+16]
         chunk2 = data2[i:i+16]
         
-        hex1 = ' '.join(f'{b:02X}' for b in chunk1)
-        hex2 = ' '.join(f'{b:02X}' for b in chunk2)
+        diff_hex = ' '.join(f'<span class="diff">{b1:02X}</span>' if b1 != b2 else f'{b1:02X}' for b1, b2 in zip(chunk1, chunk2))
         
-        diff_hex = ''.join(f'<span class="diff">{h}</span>' if b1 != b2 else h for h, b1, b2 in zip(hex1.split(), chunk1, chunk2))
-        
-        html_content += f"{diff_hex}\n"
+        html_content += f"{i:08X}  {diff_hex}\n"
     
     html_content += "</pre></div><div class='column'><pre>"
     
@@ -68,12 +65,9 @@ def compare_files(filename1, filename2):
         chunk1 = data1[i:i+16]
         chunk2 = data2[i:i+16]
         
-        hex1 = ' '.join(f'{b:02X}' for b in chunk1)
-        hex2 = ' '.join(f'{b:02X}' for b in chunk2)
+        diff_hex = ' '.join(f'<span class="diff">{b2:02X}</span>' if b1 != b2 else f'{b2:02X}' for b1, b2 in zip(chunk1, chunk2))
         
-        diff_hex = ''.join(f'<span class="diff">{h}</span>' if b1 != b2 else h for h, b1, b2 in zip(hex2.split(), chunk2, chunk1))
-        
-        html_content += f"{diff_hex}\n"
+        html_content += f"{i:08X}  {diff_hex}\n"
     
     html_content += "</pre></div></div></body></html>"
     
@@ -84,7 +78,7 @@ def compare_files(filename1, filename2):
 if __name__ == "__main__":
     print("Que voulez-vous faire ?")
     print("1. Extraire les données de tous les fichiers dans 'data' en hexadécimal")
-    print("2. Comparer deux fichiers dans 'data' et générer un rapport HTML")
+    print("2. Comparer deux fichiers dans 'resultat' et générer un rapport HTML")
     choice = input("Votre choix (1/2) : ")
     
     if choice == "1":
